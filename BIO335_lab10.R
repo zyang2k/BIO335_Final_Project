@@ -3,8 +3,12 @@
 # and then spend the rest of the lab interpreting the outputs 
 # and determining how to frame your poster and what information to include
 
+
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
 library("BiocManager")
-BiocManager::install("clusterProfiler")
+BiocManager::install("clusterProfiler", force = TRUE)
 BiocManager::install("org.Hs.eg.db")
 nBiocManager::install("DOSE")
 BiocManager::install("pathview")
@@ -19,15 +23,8 @@ library("dplyr")
 library("enrichplot")
 library("ggupset")
 
-if (!requireNamespace("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
 
 
-BiocManager::install("clusterProfiler", force = TRUE)
-
-BiocManager::install("org.Hs.eg.db")
-library(clusterProfiler)
-library(org.Hs.eg.db)
 #------#------#------#------#------#------#------#------#------#------
 
 # Load data
@@ -121,6 +118,7 @@ mutate(ego, qscore = -log(p.adjust, base=10)) %>%
   barplot(x="qscore")
 
 
+
 #------#------#------#------#------#------#------#------#------#------#------#------
 #------#------#------#------#------#------#------#------#------#------#------#------
 
@@ -129,6 +127,7 @@ mutate(ego, qscore = -log(p.adjust, base=10)) %>%
 
 dotplot(ego, showCategory=20)
 
+dotplot(ego, showCategory=10)
 
 #------#------#------#------#------#------#------#------#------#------#------#------
 #------#------#------#------#------#------#------#------#------#------#------#------
@@ -137,7 +136,7 @@ dotplot(ego, showCategory=20)
 
 
 ## Enrichmap clusters the 20 most significant (by padj) GO terms to visualize relationships between terms
-emapplot(pairwise_termsim(ego), showCategory = 20)
+emapplot(pairwise_termsim(ego), showCategory = 10)
 
 #------#------#------#------#------#------#------#------#------#------#------#------
 #------#------#------#------#------#------#------#------#------#------#------#------
